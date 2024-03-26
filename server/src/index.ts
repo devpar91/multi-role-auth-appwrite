@@ -6,8 +6,10 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import express from "express";
 import http from "http";
 import cors from "cors";
-import typeDefs from "./typeDefs/index.js";
+import { readFileSync } from "fs";
 import resolvers from "./resolvers/index.js";
+
+const typeDefs = readFileSync("./src/schema.graphql", { encoding: "utf-8" });
 
 export interface MyContext {
   token?: String;
