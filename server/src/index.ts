@@ -8,6 +8,7 @@ import http from "http";
 import cors from "cors";
 import { readFileSync } from "fs";
 import resolvers from "./resolvers/index.js";
+import { appwrite } from "./appwrite/index.js";
 
 const typeDefs = readFileSync("./src/schema.graphql", { encoding: "utf-8" });
 
@@ -32,6 +33,19 @@ app.use(
     context: async ({ req }) => ({ token: req.headers.token }),
   })
 );
+
+app.post("/signup", async (req, res) => {
+  console.log("req.body: ", req.body);
+  const {
+    email,
+    password,
+    name,
+    chef,
+  }: { email: string; password: string; name: string; chef?: boolean } =
+    req.body;
+  const result = await appwrite.signup(email, password, name, chef);
+  res.send(result);
+});
 
 await new Promise<void>((resolve) =>
   httpServer.listen({ port: 4000 }, resolve)
