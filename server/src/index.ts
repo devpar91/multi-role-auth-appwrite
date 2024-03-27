@@ -40,10 +40,10 @@ app.post("/signup", async (req, res) => {
     email,
     password,
     name,
-    chef,
-  }: { email: string; password: string; name: string; chef?: boolean } =
+    seller,
+  }: { email: string; password: string; name: string; seller?: boolean } =
     req.body;
-  const result = await appwrite.signup(email, password, name, chef);
+  const result = await appwrite.signup(email, password, name, seller);
   res.send(result);
 });
 
